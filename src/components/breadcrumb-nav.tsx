@@ -12,21 +12,31 @@ import {
 export function BreadcrumbNav() {
   const pathname = usePathname()
 
-  const segments = pathname
-    .split("/")
-    .filter((segment) => segment !== "")
-    .map((segment) => ({
-      name: segment.charAt(0).toUpperCase() + segment.slice(1),
-      path: segment,
-    }))
+  const pageNameByPath: Record<string, string> = {
+    "/": "Overview",
+    "/projects": "Projects",
+    "/settings": "Settings",
+  }
+
+  const pageName =
+    pageNameByPath[pathname] ??
+    pathname
+      .split("/")
+      .filter(Boolean)
+      .pop()
+      ?.replace(/-/g, " ")
+      .replace(/\b\w/g, (char) => char.toUpperCase()) ??
+    "Overview"
 
   return (
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbPage>
-            {segments.length === 0 ? "Overview" : segments[segments.length - 1].name}
-          </BreadcrumbPage>
+          <BreadcrumbPage>ITDEV-164</BreadcrumbPage>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage>{pageName}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
