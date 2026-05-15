@@ -137,3 +137,56 @@ As mentioned in the assignment instructions, the AI gave na overcomplicated fix 
 ### Reflection
 
 I'm not sure if the initial error I had was from the AI or from an issue I had before that I didn't notice, but it was able to fix it just fine. The AI has been convenient for troubleshooting, and I like that there's the simple undo button that you can use instead of manually hunting down every change it made if I encounter an error
+
+
+
+## Activity 3: Server-Side Data with Supabase
+
+### Prompt 1
+
+**What I asked:**
+
+Using the Supabase client at src/lib/supabase.ts, create a new Server Component
+at src/app/projects/page.tsx that:
+
+1. Fetches all records from the "projects" table in Supabase
+2. Displays them in a professional layout using shadcn/ui Card components
+   (run `npx shadcn@latest add card` if needed)
+3. Each card should show the project title, description, and a status badge
+4. The status badge should be color-coded:
+   - "active" = green
+   - "completed" = blue
+   - "archived" = gray
+
+Use @workspace context to match the styling of our existing Dashboard.
+This must be a React Server Component (async function, no "use client").
+Do NOT use useEffect or useState for data fetching.
+
+
+**What happened:**
+
+The agent did everything as expected except for an error with the following lines where it formatted the call wrong, but I just modified it myself to match what was recommended in the assignment instructions
+
+export default async function ProjectsPage() {
+  const { data: projects, error } = await supabase
+    .from("projects")   <-- extra line was here
+    .select("*");
+
+
+I also ran the follow-up prompt to fix the breadcrumbs which went smoothly
+
+### Prompt 2
+
+**What I asked:**
+
+(as three separate prompts in succession)
+
+the boxes feel a bit cluttered on the page, could you try moving the description down to the same box s the status?
+
+please make the project names more vertically centered within the box, they are too close to the top edge
+
+please move the status to the top part of the box next to the project name, still right justified
+
+**What happened:**
+
+The AI made the adjustments as I requested them without breaking anything
