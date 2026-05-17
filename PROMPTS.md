@@ -53,6 +53,8 @@ it rescanned the code to ensure it had already implemented the change correctly,
 It was interesting seeing how our results all varied. It will be interesting to see how similar/different our end results are after a few more assignments. I'm only 2 prompts in, so I don't know how well I like it yet, but we'll see where we go from here
 
 
+##########################################
+
 
 ## Activity 2: Building the Fashboard Shell
 
@@ -139,6 +141,8 @@ As mentioned in the assignment instructions, the AI gave na overcomplicated fix 
 I'm not sure if the initial error I had was from the AI or from an issue I had before that I didn't notice, but it was able to fix it just fine. The AI has been convenient for troubleshooting, and I like that there's the simple undo button that you can use instead of manually hunting down every change it made if I encounter an error
 
 
+##########################################
+
 
 ## Activity 3: Server-Side Data with Supabase
 
@@ -190,3 +194,86 @@ please move the status to the top part of the box next to the project name, stil
 **What happened:**
 
 The AI made the adjustments as I requested them without breaking anything
+
+
+##########################################
+
+
+## Activity 4: AI-Driven Forms & Validation
+
+### Prompt 1
+
+**What I asked:**
+
+Create a Zod validation schema in a new file src/lib/schemas.ts for a "Project"
+with the following fields:
+
+title: string, minimum 3 characters, with a custom error message
+"Title must be at least 3 characters"
+description: string, minimum 10 characters, with a custom error message
+"Description must be at least 10 characters"
+status: enum with values "active", "completed", "archived"
+Export the schema and also export the inferred TypeScript type using z.infer.
+
+**What happened:**
+
+The agent created the schema correctly with no errors
+
+### Prompt 2
+
+**What I asked:**
+
+Using the Zod schema from src/lib/schemas.ts, do the following:
+
+Create a form component at src/components/project-form.tsx that:
+
+Is a Client Component ("use client") because it uses react-hook-form hooks
+Uses react-hook-form with the zodResolver from @hookform/resolvers for validation
+Uses shadcn/ui Field, FieldLabel, and FieldError for field layout
+Uses shadcn/ui Input for title, Textarea for description, and Select for status
+Shows inline error messages under each field when validation fails
+Has a "Create Project" submit button
+Shows a sonner toast notification on successful submission
+Create a Server Action at src/app/actions.ts that:
+
+Has "use server" at the top of the file
+Accepts the validated form data
+Validates it again with the Zod schema (server-side validation)
+Inserts the validated data into the Supabase "projects" table
+Returns a success or error response
+Create a new page at src/app/projects/new/page.tsx that renders
+the project form within the dashboard layout.
+
+Add a "New Project" button to the existing projects page
+(src/app/projects/page.tsx) that links to /projects/new.
+
+Use @workspace to match the existing project styling.
+
+**What happened:**
+
+The Agent seemed to handle the longer task list pretty well. I wasn't fully confident with the server-side validation, so I ran the followup command just to be sure it worked
+
+### Prompt 3 (if applicable)
+
+**What I asked:**
+
+The Server Action should validate the form data with the Zod schema
+before inserting into Supabase. Never trust client-side validation alone —
+always re-validate on the server. Add projectSchema.safeParse() to the
+action and return an error if validation fails.
+
+**What happened:**
+
+"I’m tightening the server action so it re-validates with safeParse before any Supabase write, then I’ll run a narrow type/error check on the touched file.
+
+Updated actions.ts and added server action to Supabase+10-4
+The server-side validation is in place now. I’m checking the edited file for type or lint issues before I wrap up.
+
+Reviewed actions.ts and planned server action insertion
+actions.ts now re-validates with projectSchema.safeParse() before any Supabase insert. If validation fails, it returns a structured error immediately instead of trusting the client payload.
+
+I also checked the file for errors and it’s clean." - The Agent
+
+### Reflection
+
+I definitely understand the appeal of the double-validation. As a user I appreciate the instant feedback, but as a developer, I am a big fan of keeping the database protected from the Evil Forces.
