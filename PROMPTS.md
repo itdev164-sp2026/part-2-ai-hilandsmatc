@@ -277,3 +277,63 @@ I also checked the file for errors and it’s clean." - The Agent
 ### Reflection
 
 I definitely understand the appeal of the double-validation. As a user I appreciate the instant feedback, but as a developer, I am a big fan of keeping the database protected from the Evil Forces.
+
+
+############################################
+
+
+## Activity 5: Securing the App with Supabase Auth
+
+### Prompt 1
+
+**What I asked:**
+
+## Activity 5: Securing the App with Supabase Auth
+
+### Prompt 1
+
+**What I asked:**
+
+Implement a complete email/password authentication flow for this Next.js 15
+App Router project using @supabase/ssr. Here is what I need:
+
+1. SUPABASE CLIENTS: Create server-side Supabase client utilities in
+   src/lib/supabase/ that work correctly with Next.js cookies. I need
+   separate clients for Server Components, Server Actions, and Middleware.
+
+2. LOGIN PAGE: Create a page at src/app/(auth)/login/page.tsx with a
+   shadcn/ui card-based login form. It should support both "Sign In"
+   and "Sign Up" (toggle between them or use tabs). Handle the auth
+   via Server Actions, not client-side fetch.
+
+3. MIDDLEWARE: Create a middleware.ts file at src/middleware.ts (next to
+   the app directory — Next.js looks for middleware as a sibling of app)
+   that:
+   - Refreshes the user's auth session on every request
+   - Protects the /projects routes — redirect unauthenticated users to /login
+   - Allows unauthenticated access to /login
+   - Uses supabase.auth.getUser() (NOT getSession()) for verification
+
+4. SIGN OUT: Add a "Sign Out" button to the existing sidebar component
+   (src/components/app-sidebar.tsx) that calls a Server Action to sign
+   the user out and redirect to /login. The button must only render
+   when an authenticated user is present — pass the user as a prop from
+   the root layout (which will need to fetch it via the server Supabase
+   client) and gate the Sign Out UI on that prop.
+
+5. UPDATE DATA QUERIES: Modify the projects page and the create-project
+   Server Action to use the authenticated Supabase client so that RLS
+   policies filter data per user.
+
+Use @workspace to understand the existing project structure. Do not remove
+or break existing functionality — integrate auth around it.
+
+**What happened:**
+
+The only error I spotted after the first prompt was that middleware.ts was created in the project folder instead of in src
+
+I just dragged it into place myself instead of writing more prompts
+
+### Reflection
+
+I was definitely surprised at the number of files that were created or modified to make the change happen.

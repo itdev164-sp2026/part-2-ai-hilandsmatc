@@ -7,3 +7,18 @@ export const projectSchema = z.object({
 });
 
 export type Project = z.infer<typeof projectSchema>;
+
+export const authSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+export type AuthInput = z.infer<typeof authSchema>;
+
+export const userSchema = z.object({
+  id: z.string(),
+  email: z.string().email(),
+  user_metadata: z.record(z.any()).optional(),
+});
+
+export type User = z.infer<typeof userSchema>;
