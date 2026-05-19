@@ -52,7 +52,7 @@ export default function HomePage() {
           </p>
         </div>
         <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
-          I'm passionate about building modern web applications using AI-assisted development workflows. Currently learning full-stack development with Next.js, TypeScript, and Supabase to create scalable, type-safe applications.
+          I&apos;m passionate about building modern web applications using AI-assisted development workflows. Currently learning full-stack development with Next.js, TypeScript, and Supabase to create scalable, type-safe applications.
         </p>
       </section>
 
