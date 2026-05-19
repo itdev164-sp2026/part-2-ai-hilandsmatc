@@ -1,7 +1,7 @@
 "use server"
 
 import { projectSchema } from "@/lib/schemas";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/server";
 
 export async function createProject(data: unknown) {
   const parsed = projectSchema.safeParse(data);
@@ -12,6 +12,8 @@ export async function createProject(data: unknown) {
       error: parsed.error.issues[0]?.message ?? "Invalid project data",
     };
   }
+
+  const supabase = await createClient();
 
   const { error, data: inserted } = await supabase
     .from("projects")

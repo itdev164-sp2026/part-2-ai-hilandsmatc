@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, FolderOpen, Settings } from "lucide-react"
+import { Home, FolderOpen, Settings, LogOut } from "lucide-react"
 
 import {
   Sidebar,
@@ -14,10 +14,17 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarTrigger,
+  SidebarFooter,
   useSidebar,
 } from "@/components/ui/sidebar"
+import type { User } from "@/lib/schemas"
+import { signOut } from "@/app/auth"
 
-export function AppSidebar() {
+interface AppSidebarProps {
+  user: User | null;
+}
+
+export function AppSidebar({ user }: AppSidebarProps) {
   const pathname = usePathname()
   const { setOpenMobile } = useSidebar()
 
@@ -78,6 +85,24 @@ export function AppSidebar() {
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
+
+      {user && (
+        <SidebarFooter className="border-t border-sidebar-border">
+          <form
+            action={async () => {
+              await signOut()
+            }}
+          >
+            <button
+              type="submit"
+              className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+            >
+              <LogOut className="h-4 w-4" />
+              <span>Sign Out</span>
+            </button>
+          </form>
+        </SidebarFooter>
+      )}
     </Sidebar>
   )
 }

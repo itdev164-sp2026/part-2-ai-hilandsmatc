@@ -10,6 +10,8 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { getUser } from "@/app/auth";
+import type { User } from "@/lib/schemas";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -25,11 +27,13 @@ export const metadata: Metadata = {
   description: "AI-native web development with Next.js, Tailwind, and Supabase",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user: User | null = await getUser();
+
   return (
     <html lang="en" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
       <body className={`${inter.variable} font-sans antialiased`}>
@@ -41,7 +45,7 @@ export default function RootLayout({
         >
           <TooltipProvider>
             <SidebarProvider>
-              <AppSidebar />
+              <AppSidebar user={user} />
               <SidebarInset>
                 <header className="flex h-16 items-center justify-between border-b border-border bg-card px-4">
                   <div className="flex items-center gap-2">

@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,6 +31,7 @@ function statusClass(status?: string | null) {
 }
 
 export default async function ProjectsPage() {
+  const supabase = await createClient();
   const { data: projects, error } = await supabase
     .from("projects")
     .select("*");
