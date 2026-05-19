@@ -18,7 +18,7 @@ export type AuthInput = z.infer<typeof authSchema>;
 export const userSchema = z.object({
   id: z.string(),
   email: z.string().email(),
-  user_metadata: z.record(z.any()).optional(),
+  user_metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
 export type User = z.infer<typeof userSchema>;
