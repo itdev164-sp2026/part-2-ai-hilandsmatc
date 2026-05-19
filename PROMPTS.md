@@ -337,3 +337,69 @@ I just dragged it into place myself instead of writing more prompts
 ### Reflection
 
 I was definitely surprised at the number of files that were created or modified to make the change happen.
+
+
+##################################################
+
+
+## Activity 6: Deployment, Webhooks, & AI-Testing
+
+### Prompt 1
+
+**What I asked:**
+
+I have a Next.js app with Supabase Auth. Using @workspace context to
+understand the app structure, write an End-to-End (E2E) test file at
+tests/auth.spec.ts using Playwright.
+
+The tests should verify:
+
+1. LOGIN PAGE VISIBLE: Navigate to /login and confirm the login form
+   is visible (check for email input, password input, and submit button).
+
+2. REDIRECT AFTER LOGIN: After a successful login with valid credentials,
+   the user is redirected to the dashboard or projects page.
+
+3. SIDEBAR NAVIGATION: After login, verify that the sidebar navigation
+   links are visible: "Overview", "Projects", and "Settings".
+
+Requirements:
+- Use role-based locators (getByRole, getByLabel, getByText) instead of
+  CSS selectors or test IDs. This makes tests more accessible and resilient
+  to UI changes.
+- Add clear test descriptions that explain what each test verifies.
+- Handle the async nature of navigation and page loads with proper
+  Playwright waiting strategies.
+- Read test credentials from process.env.TEST_USER_EMAIL and
+  process.env.TEST_USER_PASSWORD. Do not hardcode credentials. If those
+  variables are not set, the credentialed tests should skip with a clear
+  message rather than fail.
+
+
+**What happened:**
+
+The first test failed which caused it to skip the next two
+
+### Prompt 2
+
+**What I asked:**
+
+This Playwright test is failing with the following error:
+tests\auth.spec.ts:7:7 › Authentication E2E › LOGIN PAGE VISIBLE — shows email, password and submit button
+
+Look at the actual component code in @workspace and fix the test
+to match the real UI. Use role-based locators.
+
+**What happened:**
+
+after allowing it to run a few commands to diagnose the issue, it was able to get the first test to pass, but the other two tests were still skipping (i didn't save the edits to .env.local so the test couldn't read the login info i gave it)
+
+after figuring that out, everything went fine
+
+### Reflection
+
+it was definitely handy to have the AI because it caught mistakes that I made, but I felt a kind of removed from the process having the AI do all of the test writing and then the actual testing
+
+### Course Reflection
+
+I have definitely started taking things more step-by-step with my prompting and gotten better at it along the way. I still try to avoid using AI where I can ebcause I don't want to become too reliant on it, and I loathe the environmental impact it is causing with the water consumption and the new data centers and so on, but it is still a very useful tool and a helpful coding assistant
